@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eric Pantera"]
   spec.email         = ["eric.pantera@gmail.com"]
   spec.description   = %q{Interprates Rails data structures for you to generate beautiful Google Charts}
-  spec.summary       = %q{Interprates Rails data structures for you to generate beautiful Google Charts}
+  spec.summary       = %q{Beautiful Google Charts from Rails data structures}
   spec.homepage      = "https://github.com/epantera/rorschart"
   spec.license       = "MIT"
 

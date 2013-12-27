@@ -1,3 +1,3 @@
 require "rorschart/version"
 require "rorschart/helper"
-require "rorschart/rails"
+require "rorschart/rails" if defined?(Rails)

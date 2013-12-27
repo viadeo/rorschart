@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    rorschart (0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (4.7.5)
+    rake (10.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.3)
+  minitest
+  rake
+  rorschart!
