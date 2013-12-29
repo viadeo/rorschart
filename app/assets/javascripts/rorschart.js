@@ -58,7 +58,12 @@
 
   function drawChart(ChartClass, element, dataSource, options) {
 
-    var dataTable;
+    var dataTable, type;
+
+    type = Object.prototype.toString.call(dataSource);
+    if (type === '[object String]') {
+      dataSource = JSON.parse(dataSource);
+    }
 
     dataSource = Object.create(dataSource);
 
