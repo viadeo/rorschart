@@ -121,7 +121,7 @@ private
 		height = options.delete(:height) || "300px"
 
 		html = <<HTML
-			<div id="#{ERB::Util.html_escape(element_id)}" style="height: #{ERB::Util.html_escape(height)}; width:100%;";>
+			<div id="#{ERB::Util.html_escape(element_id)}" style="height: #{ERB::Util.html_escape(height)}; width:100%;">
 				Loading data...
 			</div>
 HTML
@@ -161,7 +161,7 @@ JS
 			rows = add_rows data
 		end
 
-		return  { cols: cols, rows: rows }
+		return  {cols: cols, rows: rows}
 	end
 
 	def add_rows(rows)

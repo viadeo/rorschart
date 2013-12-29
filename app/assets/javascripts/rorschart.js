@@ -44,10 +44,6 @@
   function processDate(dataTable) {
     var i, j, col, date_ISO8601;
 
-    if (dataTable.cols == null) || (dataTable.rows == null) {
-      throw { "Invalid data chart format. Missing 'cols' or 'rows'." }
-    }
-
     for (i = 0; i < dataTable.cols.length; i++) {
       col = dataTable.cols[i];
       if ((col.type === 'date') || (col.type === 'datetime')) {
@@ -63,6 +59,8 @@
   function drawChart(ChartClass, element, dataSource, options) {
 
     var dataTable;
+
+    dataSource = Object.create(dataSource);
 
     try {
       dataTable = new google.visualization.DataTable(processDate(dataSource));
@@ -100,7 +98,7 @@
     } else {
       google.setOnLoadCallback(drawChart(chartClass, element, dataSource, options));
     }
-  }
+  };
 
   window.Rorschart = rorschart;
 
