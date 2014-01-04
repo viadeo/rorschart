@@ -3,8 +3,11 @@ Rorschart
 
 Rorchart interprates Rails data structures for you to generate beautiful Javascript Google Charts.
 
-Designed to be the perfect companion to [rails-snowplow](#).
+Checkout the [demonstration page](http://viadeo.github.io/rorschart).
 
-### Credits
-
-Rorschart is inpired by [chartkick](https://github.com/ankane/chartkick) from Andrew Kane. Rorschart was design with a different approach of data handling  and especially regarding multiple series management to allow multiple series Graphs and Tables creation right from an ActiveRecord query.
+Rorschart is a Ruby library that interprates Rails data structures for you to generate beautiful Javascript Google.
+# Multi-series charts directly from yours ActiveRecord queries
+# Works with all Google Charts
+# Detects appropriate data type to customize axes labels
+# Supports asynchonous ajax data generation
+# Rorschart knows how to draw charts from Array, Hash, Array of Array or Hash, ActiveRecord::Relation...
