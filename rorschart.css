@@ -1,0 +1,32 @@
+/*  Table  */
+
+table {
+  width: 100%;
+}
+
+.header_row {
+  background: #FFF;
+  color: #000;
+  white-space:nowrap;
+}
+
+.header_cel {
+  border: 0px;
+  font-weight: bold;
+}
+
+.hover_table_row {
+  background-color: #d6e9f8;
+}
+
+.table_row {
+  white-space:nowrap;
+}
+
+/* layout */
+
+.container {
+  width: 99%;
+}
+
+

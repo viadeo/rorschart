@@ -3,49 +3,78 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Rorschart by viadeo</title>
+    <title>Rorschart</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="github.css">    
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="rorschart.js"></script>
+    <link rel="stylesheet" href="rorschart.css">
+
+    <style>
+      .container-fluid {
+          max-width: 900px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+    </style>
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Rorschart</h1>
-        <p>Interprates Rails data structures to generate beautiful Google Charts</p>
+    <a href="https://github.com/viadeo/rorschart"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 
-        <p class="view"><a href="https://github.com/viadeo/rorschart">View the Project on GitHub <small>viadeo/rorschart</small></a></p>
+    <div class="container-fluid">
+      <div class="page-header">
+          <h1>Rorschart</h1>
+          <p class="lead">Create beautifull multi-series Google charts from yours Ruby objects</p>
+          <p>Rorschart is a Ruby library that interprates Rails data structures for you to generate beautiful Javascript Google.</p>
+          <ul>
+            <li>Multi-series charts directly from yours ActiveRecord queries</li>
+            <li>Works with all Google Charts</li>
+            <li>Detects appropriate data type to customize axes labels</li>            
+            <li>Supports asynchonous ajax data generation</li>
+            <li>Rorschart knows how to draw charts from Array, Hash, Array of Array or Hash, ActiveRecord::Relation...</li>
+          </ul>
+          <p>Designed to be the perfect companion to <a href="">snowplow-rails</a>.</p>
+      </div>
 
+      <h2>Few examples</h2>
+      <br/>
+      <h4> Multi-series LineChart</h4>
 
-        <ul>
-          <li><a href="https://github.com/viadeo/rorschart/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/viadeo/rorschart/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/viadeo/rorschart">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a name="rorschart" class="anchor" href="#rorschart"><span class="octicon octicon-link"></span></a>Rorschart</h1>
+      <div class="highlight highlight-ruby"><pre><span class="o">&lt;%=</span> <span class="n">line_chart</span> <span class="no">Event</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"count(*) as Visit"</span><span class="p">,</span> <span class="s2">"count(distinct(user_id)) as Visitor"</span><span class="p">).group_by_date</span> <span class="o">%&gt;</span>
+</pre></div>
 
-<p>Rorchart interprates Rails data structures for you to generate beautiful Javascript Google Charts.</p>
+      <div id="chart1" style="height: 300px;">Loading...</div>
+      <script>
 
-<p>Designed to be the perfect companion to <a href="#">rails-snowplow</a>.</p>
+        Rorschart(google.visualization.LineChart, "chart1", {"cols":[{"type":"date","label":"date"},{"type":"number","label":"uniques"},{"type":"number","label":"visits"}],"rows":[{"c":[{"v":"2013-12-24T00:00:00Z"},{"v":1014},{"v":1182}]},{"c":[{"v":"2013-12-25T00:00:00Z"},{"v":841},{"v":964}]},{"c":[{"v":"2013-12-26T00:00:00Z"},{"v":1309},{"v":1533}]},{"c":[{"v":"2013-12-27T00:00:00Z"},{"v":1287},{"v":1507}]},{"c":[{"v":"2013-12-28T00:00:00Z"},{"v":844},{"v":972}]},{"c":[{"v":"2013-12-29T00:00:00Z"},{"v":828},{"v":957}]},{"c":[{"v":"2013-12-30T00:00:00Z"},{"v":1318},{"v":1560}]},{"c":[{"v":"2013-12-31T00:00:00Z"},{"v":1045},{"v":1214}]},{"c":[{"v":"2014-01-01T00:00:00Z"},{"v":903},{"v":1033}]},{"c":[{"v":"2014-01-02T00:00:00Z"},{"v":1554},{"v":1856}]},{"c":[{"v":"2014-01-03T00:00:00Z"},{"v":1577},{"v":1879}]}]}, {"fontName":"'Helvetica Neue', Helvetica, Arial, sans-serif","pointSize":8,"lineWidth":3,"chartArea":{"width":"100%","height":"70%"},"titlePosition":"out","axisTitlesPosition":"in","legend":{"textStyle":{"fontSize":12,"color":"#444"},"alignment":"end","position":"top"},"curveType":"function","hAxis":{"textStyle":{"color":"#666","fontSize":12},"gridlines":{"color":"transparent"},"baselineColor":"#ccc","viewWindow":{}},"vAxis":{"textStyle":{"color":"#666","fontSize":12},"textPosition":"in","baselineColor":"#ccc","viewWindow":{}},"tooltip":{"textStyle":{"color":"#666","fontSize":12}},"colors":["#00A0B0","#6A4A3C","#CC333F","#EB6841","#EDC951"],"allowHtml":true,"isStacked":true});
+ 
+      </script>
 
-<h3>
-<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
+      <h4>Multi-columns Table</h4>
 
-<p>Rorchart is inpired by <a href="https://github.com/ankane/chartkick">chartkick</a> from Andrew Kane. Rorchart was design with a different approach of data handling  and especially regarding multiple series management to allow multiple series Graphs and Tables creation right from an ActiveRecord query.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/viadeo">viadeo</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+      <div class="highlight highlight-ruby"><pre><span class="o">&lt;%=</span> <span class="n">table_chart</span> <span class="no">Event</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"count(*) as Visit"</span><span class="p">,</span> <span class="s2">"count(distinct(user_id)) as Visitor"</span><span class="p">).group_by_date</span> <span class="o">%&gt;</span></pre></div>
+      <br/>
+      <div id="chart2" style="height: 300px; width: 100%;">Loading...</div>
+      <script>
+
+        Rorschart(google.visualization.Table, "chart2", {"cols":[{"type":"date","label":"date"},{"type":"number","label":"uniques"},{"type":"number","label":"visits"}],"rows":[{"c":[{"v":"2013-12-24T00:00:00Z"},{"v":1014},{"v":1182}]},{"c":[{"v":"2013-12-25T00:00:00Z"},{"v":841},{"v":964}]},{"c":[{"v":"2013-12-26T00:00:00Z"},{"v":1309},{"v":1533}]},{"c":[{"v":"2013-12-27T00:00:00Z"},{"v":1287},{"v":1507}]},{"c":[{"v":"2013-12-28T00:00:00Z"},{"v":844},{"v":972}]},{"c":[{"v":"2013-12-29T00:00:00Z"},{"v":828},{"v":957}]},{"c":[{"v":"2013-12-30T00:00:00Z"},{"v":1318},{"v":1560}]},{"c":[{"v":"2013-12-31T00:00:00Z"},{"v":1045},{"v":1214}]},{"c":[{"v":"2014-01-01T00:00:00Z"},{"v":903},{"v":1033}]},{"c":[{"v":"2014-01-02T00:00:00Z"},{"v":1554},{"v":1856}]},{"c":[{"v":"2014-01-03T00:00:00Z"},{"v":1577},{"v":1879}]}]}, {"fontName":"'Helvetica Neue', Helvetica, Arial, sans-serif","pointSize":8,"lineWidth":3,"chartArea":{"width":"100%","height":"70%"},"titlePosition":"out","axisTitlesPosition":"in","legend":{"textStyle":{"fontSize":12,"color":"#444"},"alignment":"end","position":"top"},"curveType":"function","hAxis":{"textStyle":{"color":"#666","fontSize":12},"gridlines":{"color":"transparent"},"baselineColor":"#ccc","viewWindow":{}},"vAxis":{"textStyle":{"color":"#666","fontSize":12},"textPosition":"in","baselineColor":"#ccc","viewWindow":{}},"tooltip":{"textStyle":{"color":"#666","fontSize":12}},"colors":["#00A0B0","#6A4A3C","#CC333F","#EB6841","#EDC951"],"allowHtml":true,"isStacked":true});
+ 
+      </script>
+
+      <h4>And many more...</h4>
     
+        <div class="alert alert-info">Rorschart supports many more charts. Have a look to the <a href="https://developers.google.com/chart/">Google Charts documentation</a>.</div>
+
+
+      <h3>Credits</h3>
+
+      <p>Rorschart is inpired by <a href="https://github.com/ankane/chartkick">chartkick</a> from Andrew Kane. Rorschart was design with a different approach of data handling  and especially regarding multiple series management to allow multiple series Graphs and Tables creation right from an ActiveRecord query.</p>
+    </div>    
   </body>
 </html>
