@@ -8,6 +8,11 @@ Rorschart is a Ruby library that interprates Rails data structures for you to ge
 * Detects appropriate data type to customize axes labels
 * Supports asynchonous ajax data generation
 * Rorschart knows how to draw charts from Array, Hash, Array of Array or Hash, ActiveRecord::Relation...
- 
+
 Checkout the [demonstration page](http://viadeo.github.io/rorschart).
 
+Designed to be the perfect companion to [Snowplow-dashboard](https://github.com/viadeo/snowplow-dashboard).
+
+## License
+
+Distributed under the MIT license.
