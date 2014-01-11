@@ -1,7 +1,7 @@
 Rorschart
 =========
 
-Rorschart is a Ruby library that interprates common Ruby and Activerecoard data structures for you to generate beautiful Javascript Google Chart.
+Rorschart is a Ruby library that interprates common Ruby and Activerecord data structures for you to generate beautiful Javascript Google Chart.
 
 * Multi-series charts directly from yours ActiveRecord queries
 * Works with all Google Charts
