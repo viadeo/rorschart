@@ -96,7 +96,6 @@
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        console.log("error");
         var message = (typeof errorThrown === "string") ? errorThrown : errorThrown.message;
         chartError(element, message + jqXHR.responseText);
       }
