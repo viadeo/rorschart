@@ -84,15 +84,26 @@
   function retrieveRemoteData(element, url, callback) {
     $.ajax({
       url: url,
-      success: function (data) {
-        callback(data);
+      statusCode: {
+        202: function (data) {
+          //Use traditionnal polling here instead of long one. Heroku in mind.
+          setTimeout(function () {
+            retrieveRemoteData(element, url, callback);
+          }, 1500);
+        },
+        200: function (data) {
+          callback(data);
+        }
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        console.log("error");
         var message = (typeof errorThrown === "string") ? errorThrown : errorThrown.message;
         chartError(element, message + jqXHR.responseText);
       }
     });
   }
+
+
 
   rorschart = function (chartClass, element, dataSource, options) {
     element = getElement(element);
