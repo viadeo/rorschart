@@ -1,6 +1,7 @@
 require "test_helper"
 
-class TestRorschart < Minitest::Test
+
+class TestRorschart  < Minitest::Unit::TestCase
   include Rorschart::Helper
 
   def compare_dataTable(right, left)
@@ -9,7 +10,7 @@ class TestRorschart < Minitest::Test
     assert_equal right.to_json, left.to_json
   end
 
-  test "From a Simple Hash. Detect Type and Name" do
+  def test_from_a_simple_hash_and_detect_type_and_name
 
     # Given
     data = {
@@ -35,8 +36,31 @@ class TestRorschart < Minitest::Test
     compare_dataTable excepted, dataTable
   end
 
+  def test_from_a_very_simple_hash_and_detect_type_and_name
 
-  test "From an Array of Hash. Detect Type and Reuse column name" do
+    # Given
+    data = {
+      "test" => DateTime.now
+    }
+    
+    # When
+    dataTable = to_datatable_format(data)   
+
+    # Then
+    excepted = {
+       cols: [
+          {type: 'string', label: 'Value'},
+          {type: 'datetime', label: 'Date'}
+          ],
+       rows: [
+          {c:[{v: "test"}, {v: DateTime.now}]}
+           ]
+    }
+
+    compare_dataTable excepted, dataTable
+  end
+
+  def test_from_an_array_of_hash_and_detect_type_and_reuse_column_name
 
     # Given
     data = [
@@ -62,7 +86,7 @@ class TestRorschart < Minitest::Test
     compare_dataTable excepted, dataTable
   end
 
-  test "From an Array of Array" do
+  def test_from_an_array_of_array
 
     # Given
     data = [
@@ -89,7 +113,7 @@ class TestRorschart < Minitest::Test
   end
 
 
-  test "From a Model. Remove empty primary key" do
+  def test_from_a_model_remove_empty_primary_key
 
     # Given
     data = SampleModel.create(:username => 'John Doe', :age => 42)
@@ -111,7 +135,7 @@ class TestRorschart < Minitest::Test
   end
 
 
-  test "From an Array of Model" do
+  def test_from_an_array_of_model
 
     # Given
     data = [ 
@@ -139,3 +163,15 @@ class TestRorschart < Minitest::Test
 
 
 end
+
+
+class SampleModel < ActiveRecord::Base
+  
+  def self.create_schema
+    schema = 'CREATE TABLE "sample_models" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "age" INTEGER);'
+    ActiveRecord::Base.connection.execute(schema)
+  end
+
+  create_schema
+
+end 
