@@ -66,6 +66,10 @@
     }
 
     dataSource = Object.create(dataSource);
+    if (dataSource.cols == null) {
+      setText(element, "Empty data")
+      return
+    }
 
     try {
       dataTable = new google.visualization.DataTable(processDate(dataSource));
@@ -101,8 +105,6 @@
       }
     });
   }
-
-
 
   rorschart = function (chartClass, element, dataSource, options) {
     element = getElement(element);
