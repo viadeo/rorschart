@@ -141,7 +141,7 @@ JS
 
 	def to_datatable_format(data)
 
-		data = convert_objects_to_array_of_hash(data)
+		data = merge_series(convert_objects_to_array_of_hash(data))
 
 		case data
 		when Array
@@ -152,7 +152,7 @@ JS
 				rows = add_rows data
 			
 			when Hash
-				cols = columns_from_hash_row(data.first)
+				cols = columns_from_hash_row(data)
 				rows = add_rows data.map{|row| row.values}
 			end
 
@@ -162,6 +162,28 @@ JS
 		end
 
 		return  {cols: cols, rows: rows}
+	end
+
+	def merge_series(data)
+
+		return data if data.first.nil? || data.first.is_a?(Array)
+		prototype = flatten_array_hash(data).inject({}) { |h, (k, v)| h[k] = nil; h }
+
+		series = {}
+		data.each { |e|
+			key = e.values.first
+			series[key] = series[key] ? series[key].merge(e) : prototype.merge(e)
+		}
+
+		if series.keys[0].is_a? Date
+			series.sort.collect{|e| e[1]}
+		else
+			series.values
+		end
+	end	
+
+	def flatten_array_hash(data)
+		data.inject({}){|row, hash| row.merge(hash)}
 	end
 
 	def add_rows(rows)
@@ -200,7 +222,8 @@ JS
 		"google.visualization." + klass_symbol.to_s
 	end
 
-	def columns_from_hash_row(hash_row)
+	def columns_from_hash_row(data)
+		hash_row = flatten_array_hash(data)
 		hash_row.map { |c|
 			{:type => type_to_string(c[1]), :label => c[0]}
 		}
@@ -213,7 +236,7 @@ JS
 	end
 
 	def type_to_string(cel)
-		return 'number' if (cel.is_a? Integer) or (cel.is_a? Float)
+		return 'number' if (cel.is_a? Integer) or (cel.is_a? Float) or cel.nil?
 		return 'datetime' if (cel.is_a? DateTime) or (cel.is_a? Time) 
 		return 'date' if cel.is_a? Date
 		return 'boolean' if (!!cel == cel)

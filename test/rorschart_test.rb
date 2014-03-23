@@ -78,8 +78,8 @@ class TestRorschart  < Minitest::Unit::TestCase
           {type: 'number', label: 'count'}
           ],
        rows: [
-          {c:[{v: Date.parse("2013-12-02")}, {v: 44}]},
-          {c:[{v: Date.parse("2013-11-28")}, {v: 49}]}
+          {c:[{v: Date.parse("2013-11-28")}, {v: 49}]},
+          {c:[{v: Date.parse("2013-12-02")}, {v: 44}]}
            ]
     }
 
@@ -161,6 +161,89 @@ class TestRorschart  < Minitest::Unit::TestCase
     compare_dataTable excepted, dataTable
   end
 
+  def test_merge_two_series
+    # Given
+    data = [
+      {"collector_tstamp"=> Date.parse("2013-12-01"), "count"=> 1},
+      {"collector_tstamp"=> Date.parse("2013-12-02"), "count"=> 2},
+      {"collector_tstamp"=> Date.parse("2013-12-02"), "visit"=> 11},
+      {"collector_tstamp"=> Date.parse("2013-12-03"), "visit"=> 3}
+    ]
+
+    # When
+    series = to_datatable_format(data)
+
+    # Then
+    excepted = {
+       cols: [
+          {type: 'date', label: 'collector_tstamp'},
+          {type: 'number', label: 'count'},
+          {type: 'number', label: 'visit'}          
+          ],
+       rows: [
+          {c:[{v: Date.parse("2013-12-01")}, {v: 1}, {v: nil}]},
+          {c:[{v: Date.parse("2013-12-02")}, {v: 2}, {v: 11}]},          
+          {c:[{v: Date.parse("2013-12-03")}, {v: nil}, {v: 3}]}
+           ]
+    }
+
+    compare_dataTable excepted, series  
+
+  end
+
+  def test_merge_two_series_with_first_serie_start_later
+    # Given
+    data = [
+      {"collector_tstamp"=> Date.parse("2013-12-03"), "count"=> 1},
+      {"collector_tstamp"=> Date.parse("2013-12-04"), "count"=> 2},
+      {"collector_tstamp"=> Date.parse("2013-12-05"), "count"=> 3},
+
+      {"collector_tstamp"=> Date.parse("2013-12-01"), "visit"=> 5},
+      {"collector_tstamp"=> Date.parse("2013-12-02"), "visit"=> 6},
+      {"collector_tstamp"=> Date.parse("2013-12-03"), "visit"=> 7},
+      {"collector_tstamp"=> Date.parse("2013-12-04"), "visit"=> 8}
+    ]
+
+    # When
+    series = to_datatable_format(data)
+
+    # Then
+    excepted = {
+       cols: [
+          {type: 'date', label: 'collector_tstamp'},
+          {type: 'number', label: 'count'},
+          {type: 'number', label: 'visit'}          
+          ],
+       rows: [
+          {c:[{v: Date.parse("2013-12-01")}, {v: nil}, {v: 5}]},
+          {c:[{v: Date.parse("2013-12-02")}, {v: nil}, {v: 6}]},
+          {c:[{v: Date.parse("2013-12-03")}, {v: 1}, {v: 7}]},
+          {c:[{v: Date.parse("2013-12-04")}, {v: 2}, {v: 8}]},
+          {c:[{v: Date.parse("2013-12-05")}, {v: 3}, {v: nil}]}
+           ]
+    }
+
+    compare_dataTable excepted, series  
+
+  end
+
+  def test_flatten_data
+
+    # Given
+    data = [
+              {:a => 1, :b => 2},
+              {:a => 2, :b => 3},
+              {:b => 2, :c => 4}
+            ] 
+
+    # When
+    flat = flatten_array_hash(data)
+
+    # Then
+    excepted = {:a => 2, :b => 2, :c => 4}
+
+    assert_equal excepted, flat
+  end
 
 end
 
