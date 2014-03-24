@@ -117,7 +117,7 @@ private
 
 		dataSource = format_if_needed(dataSource)
 		element_id = options.delete(:id) || generateChartId
-		options = default_options.merge(chart_options(klass_symbol)).merge(options);
+		options = default_options.merge(chart_options(klass_symbol)).deep_merge(options);
 		height = options.delete(:height) || "300px"
 
 		html = <<HTML
