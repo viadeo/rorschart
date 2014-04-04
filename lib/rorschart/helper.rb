@@ -168,11 +168,12 @@ JS
 
 		return data if data.first.nil? || data.first.is_a?(Array)
 		prototype = flatten_array_hash(data).inject({}) { |h, (k, v)| h[k] = nil; h }
+		return data if prototype.values.size > 3
 
 		series = {}
 		data.each { |e|
 			key = e.values.first
-			series[key] = series[key] ? series[key].merge(e) : prototype.merge(e)
+			series[key] = series[key] ? convert_grouped_values_into_series(series[key], e) : prototype.merge(e)
 		}
 
 		if series.keys[0].is_a? Date
@@ -180,7 +181,15 @@ JS
 		else
 			series.values
 		end
-	end	
+	end
+
+	def convert_grouped_values_into_series(serieA, serieB)
+		if (serieB.values.size == 3)
+			{serieA.keys[0] => serieA.values[0], serieA.values[1] => serieA.values[2], serieB.values[1] => serieB.values[2]}
+		else
+			serieA.merge(serieB)
+		end
+	end
 
 	def flatten_array_hash(data)
 		data.inject({}){|row, hash| row.merge(hash)}
