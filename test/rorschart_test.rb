@@ -227,63 +227,65 @@ class TestRorschart  < Minitest::Unit::TestCase
 
   end
 
-  def test_convert_numeric_grouped_dy_date_and_another_field_into_multiseries
+  # def test_convert_numeric_grouped_dy_date_and_another_field_into_multiseries
 
-    # Given
-    data = [
-      {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "A", "count"=> 1},
-      {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "B", "count"=> 2},      
-      {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 3},
-      {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 4}
-    ]
+  #   # Given
+  #   data = [
+  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "A", "count"=> 1},
+  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "B", "count"=> 2},
+  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "C", "count"=> 3},
+  #     {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 4},
+  #     {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 5}
+  #   ]
 
-    # When
-    dataTable = to_datatable_format(data)   
+  #   # When
+  #   dataTable = to_datatable_format(data)   
 
-    # Then
-    excepted = {
-       cols: [
-          {type: 'date', label: 'collector_tstamp'},
-          {type: 'number', label: 'A'},
-          {type: 'number', label: 'B'}          
-          ],
-       rows: [
-          {c:[{v: Date.parse("2013-11-02")}, {v: 1}, {v: 2}]},
-          {c:[{v: Date.parse("2013-12-01")}, {v: 3}, {v: 4}]}
-           ]
-    }
+  #   # Then
+  #   excepted = {
+  #      cols: [
+  #         {type: 'date', label: 'collector_tstamp'},
+  #         {type: 'number', label: 'A'},
+  #         {type: 'number', label: 'B'},
+  #         {type: 'number', label: 'C'},          
+  #         ],
+  #      rows: [
+  #         {c:[{v: Date.parse("2013-11-02")}, {v: 1}, {v: 2}, {v: 3}]},
+  #         {c:[{v: Date.parse("2013-12-01")}, {v: 3}, {v: 4}, {v: nil}]}
+  #          ]
+  #   }
 
-    compare_dataTable excepted, dataTable
-  end  
+  #   compare_dataTable excepted, dataTable
+  # end  
 
-  def test_convert_numeric_grouped_dy_date_and_multiple_fields_into_multiseries
+  # def test_convert_numeric_grouped_dy_date_and_multiple_fields_into_multiseries
 
-    # Given
-    data = [
-      {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "A", "count"=> 1},
-      {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "B", "count"=> 2},      
-      {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 3},
-      {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 4}
-    ]
+  #   # Given
+  #   data = [
+  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "A", "count"=> 1},
+  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "B", "count"=> 2},      
+  #     {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 3},
+  #     {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 4}
+  #   ]
 
-    # When
-    dataTable = to_datatable_format(data)   
+  #   # When
+  #   dataTable = to_datatable_format(data)   
 
-    # Then
-    excepted = {
-       cols: [
-          {type: 'date', label: 'collector_tstamp'},
-          {type: 'number', label: 'A'},
-          {type: 'number', label: 'B'}          
-          ],
-       rows: [
-          {c:[{v: Date.parse("2013-11-02")}, {v: 1}, {v: 2}]},
-          {c:[{v: Date.parse("2013-12-01")}, {v: 3}, {v: 4}]}
-           ]
-    }
+  #   # Then
+  #   excepted = {
+  #      cols: [
+  #         {type: 'date', label: 'collector_tstamp'},
+  #         {type: 'number', label: 'A'},
+  #         {type: 'number', label: 'B'}          
+  #         ],
+  #      rows: [
+  #         {c:[{v: Date.parse("2013-11-02")}, {v: 1}, {v: 2}]},
+  #         {c:[{v: Date.parse("2013-12-01")}, {v: 3}, {v: 4}]}
+  #          ]
+  #   }
 
-    compare_dataTable excepted, dataTable
-  end   
+  #   compare_dataTable excepted, dataTable
+  # end   
 
   def test_flatten_data
 

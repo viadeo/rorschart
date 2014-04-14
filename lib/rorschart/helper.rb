@@ -141,7 +141,8 @@ JS
 
 	def to_datatable_format(data)
 
-		data = merge_series(convert_objects_to_array_of_hash(data))
+		data = convert_objects_to_array_of_hash(data)
+		data = merge_series(data)
 
 		case data
 		when Array
@@ -184,11 +185,12 @@ JS
 	end
 
 	def convert_grouped_values_into_series(serieA, serieB)
-		if (serieB.values.size == 3)
-			{serieA.keys[0] => serieA.values[0], serieA.values[1] => serieA.values[2], serieB.values[1] => serieB.values[2]}
-		else
-			serieA.merge(serieB)
-		end
+		# if (serieB.values.size == 3)
+		# 	serieA.merge({serieB.values[1] => serieB.values[2]})
+		# else
+		# 	serieA.merge(serieB)
+		# end
+		serieA.merge(serieB)
 	end
 
 	def flatten_array_hash(data)
