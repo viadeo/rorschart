@@ -111,13 +111,11 @@ module Rorschart
 		to_datatable_format(data_source).to_json
 	end
 
-private
-
-	def rorschart_chart(klass_symbol, dataSource, options = {})
+	def rorschart_chart(klass_name, dataSource, options = {})
 
 		dataSource = format_if_needed(dataSource)
 		element_id = options.delete(:id) || generateChartId
-		options = default_options.merge(chart_options(klass_symbol)).deep_merge(options);
+		options = default_options.merge(chart_options(klass_name)).deep_merge(options);
 		height = options.delete(:height) || "300px"
 
 		html = <<HTML
@@ -128,12 +126,15 @@ HTML
 
 	 js = <<JS
 			<script type="text/javascript">
-				Rorschart(google.visualization.#{klass_symbol}, #{element_id.to_json}, #{dataSource.to_json}, #{options.to_json});
+				Rorschart(google.visualization.#{klass_name}, #{element_id.to_json}, #{dataSource.to_json}, #{options.to_json});
 			</script>
 JS
 
 		(html + js).html_safe 
 	end	
+
+private
+
 
 	def format_if_needed(data_source)
 		data_source.is_a?(String) ? data_source : to_datatable_format(data_source)
