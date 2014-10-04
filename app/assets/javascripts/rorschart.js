@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  var rorschart, resize;
+  var Rorschart, resize, refresh;
 
   if (window.hasOwnProperty('google')) {
     google.load('visualization', '1.0', {'packages': ['corechart', 'table']});
@@ -56,7 +56,7 @@
     return dataTable;
   }
 
-  function drawChart(ChartClass, element, dataSource, options) {
+  function drawChart(chart, chartClass, element, dataSource, options) {
 
     var dataTable, type;
 
@@ -78,10 +78,10 @@
       throw err;
     }
 
-    var chart = new ChartClass(element);
+    chart.chart = new chartClass(element);
 
     resize(function () {
-      chart.draw(dataTable, options);
+      chart.chart.draw(dataTable, options);
     });
   }
 
@@ -106,17 +106,46 @@
     });
   }
 
-  rorschart = function (chartClass, element, dataSource, options) {
-    element = getElement(element);
-    if (typeof dataSource === "string") {
-      retrieveRemoteData(element, dataSource, function (data) {
-        google.setOnLoadCallback(drawChart(chartClass, element, data, options));
+  refresh = function (chart, klass_name, hideRefreshMessage) {
+
+    if (!hideRefreshMessage) {
+      setText(chart.element, 'Loading Chart data...');
+    }
+
+    chart.chartClass = klass_name || chart.chartClass
+
+    if (typeof chart.dataSource === "string") {
+      retrieveRemoteData(chart.element, chart.dataSource, function (data) {
+        google.setOnLoadCallback(drawChart(chart, chart.chartClass, chart.element, data, chart.options));
       });
     } else {
-      google.setOnLoadCallback(drawChart(chartClass, element, dataSource, options));
+      google.setOnLoadCallback(drawChart(chart, chart.chartClass, chart.element, chart.dataSource, chart.options));
     }
+  }
+
+  function setElement(chart, chartClass, element, dataSource, options) {
+    
+    if (typeof element === "string") {
+      element = document.getElementById(element);
+    }
+
+    chart.chartClass = chartClass
+    chart.element = element;
+    chart.options = options || {};
+    chart.dataSource = dataSource;
+    Rorschart.charts[element.id] = chart;
+    refresh(chart);
+  }
+
+  Rorschart = {
+    GoogleChart: function (chartClass, element, dataSource, options) {
+      setElement(this, chartClass, element, dataSource, options);
+    },
+    charts: {}
   };
 
-  window.Rorschart = rorschart;
+
+  window.Rorschart = Rorschart;
+  window.Rorschart.refresh = refresh;
 
 }());

@@ -120,13 +120,13 @@ module Rorschart
 
 		html = <<HTML
 			<div id="#{ERB::Util.html_escape(element_id)}" style="height: #{ERB::Util.html_escape(height)}; width:100%;">
-				Loading Chart data...
+				Rorchart is not initialized.			
 			</div>
 HTML
 
 	 js = <<JS
 			<script type="text/javascript">
-				Rorschart(google.visualization.#{klass_name}, #{element_id.to_json}, #{dataSource.to_json}, #{options.to_json});
+				new Rorschart.GoogleChart(google.visualization.#{klass_name}, #{element_id.to_json}, #{dataSource.to_json}, #{options.to_json});
 			</script>
 JS
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rorschart (0.7.1)
+    rorschart (0.8.0)
 
 GEM
   remote: https://rubygems.org/
