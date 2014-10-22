@@ -7,6 +7,7 @@ module Rorschart
     def initialize(raw_data)
 
         data = convert_objects_to_array_of_hash(raw_data)
+        data = data.to_pivot if data.is_a? Rorschart::MultipleSeries
 
         case data
         when Array          
@@ -23,7 +24,6 @@ module Rorschart
 
         @rows = data.to_a
         @cols = cols
-
     end
 
     def sort_by_date!
