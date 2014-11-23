@@ -62,8 +62,7 @@ module Rorschart
               tableRow: 'table_row',
               headerRow: 'header_row',
               headerCell: 'header_cel'
-            },
-            height: "100%"
+            }
           },
           "AreaChart" => {
             isStacked: true,
