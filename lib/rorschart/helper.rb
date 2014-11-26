@@ -19,6 +19,11 @@ module Rorschart
 			rorschart_chart "ColumnChart", data_source, options
 		end
 
+		def stacked_column_chart(data_source, options = {})
+			options = {:isStacked => true}.merge(options)
+			rorschart_chart "ColumnChart", data_source, options
+		end
+
 		def bar_chart(data_source, options = {})
 			rorschart_chart "BarChart", data_source, options
 		end
