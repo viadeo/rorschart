@@ -12,11 +12,10 @@ module Rorschart
 
     def cols
       cols_with_dup = @pivot_series.inject([]) { |cols, series| 
-        cols + series.cols
+        cols + (series.cols || [])
       }
    
       cols_with_dup.uniq
-
     end
 
     def rows
@@ -26,7 +25,7 @@ module Rorschart
       # Preparation: store all series rows in a hash indexed by first column
       series_indexed = []
       @pivot_series.each { |serie|
-        series_indexed << index_series_by_first_col(serie)
+        series_indexed << index_series_by_first_col(serie) if !serie.cols.nil?
       }
 
       # The Merge:
