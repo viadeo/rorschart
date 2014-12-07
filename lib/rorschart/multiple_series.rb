@@ -1,17 +1,17 @@
 module Rorschart
   class MultipleSeries
 
-    attr_accessor :raw_series, :pivot_series
+    attr_accessor :raw_series, :rorschart_series
 
     def initialize(raw_series)
       @raw_series = raw_series
-      @pivot_series = raw_series.collect { |serie|
+      @rorschart_series = raw_series.collect { |serie|
         RorschartData.new(serie)
       }
     end
 
     def cols
-      cols_with_dup = @pivot_series.inject([]) { |cols, series| 
+      cols_with_dup = @rorschart_series.inject([]) { |cols, series| 
         cols + (series.cols || [])
       }
    
@@ -24,7 +24,7 @@ module Rorschart
 
       # Preparation: store all series rows in a hash indexed by first column
       series_indexed = []
-      @pivot_series.each { |serie|
+      @rorschart_series.each { |serie|
         series_indexed << index_series_by_first_col(serie) if !serie.cols.nil?
       }
 
@@ -50,7 +50,7 @@ module Rorschart
 
     def union_of_first_columns
       (
-        @pivot_series.inject([]) { |union, serie|
+        @rorschart_series.inject([]) { |union, serie|
           union + serie.rows
         }
       ).collect{|r| r[0]}.uniq.sort
