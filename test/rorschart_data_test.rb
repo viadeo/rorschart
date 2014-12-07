@@ -1,9 +1,9 @@
 require "test_helper"
-require "rorschart/pivot_data"
+require "rorschart/rorschart_data"
 
 module Rorschart
 
-    class TestPivotData  < Minitest::Unit::TestCase
+    class TestRorschartData  < Minitest::Unit::TestCase
 
     def test_flatten_data
 
@@ -16,8 +16,8 @@ module Rorschart
 
         # When
 
-        pivot_data = PivotData.new(nil)
-        flat = pivot_data.send(:flatten_array_hash, data)
+        rorschart_data = RorschartData.new(nil)
+        flat = rorschart_data.send(:flatten_array_hash, data)
 
         # flat = flatten_array_hash(data)
 

@@ -1,6 +1,6 @@
 module Rorschart
 
-  class PivotData
+  class RorschartData
 
     attr_accessor :cols, :rows
 

@@ -6,7 +6,7 @@ module Rorschart
     def initialize(raw_series)
       @raw_series = raw_series
       @pivot_series = raw_series.collect { |serie|
-        PivotData.new(serie)
+        RorschartData.new(serie)
       }
     end
 

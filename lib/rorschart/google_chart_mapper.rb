@@ -2,7 +2,7 @@ module Rorschart
   module GoogleChart
     module Mapper
 
-      require 'rorschart/pivot_data'
+      require 'rorschart/rorschart_data'
 
       def format_if_needed(data_source)
         data_source.is_a?(String) ? data_source : to_datatable_format(data_source)
@@ -15,7 +15,7 @@ module Rorschart
         if (data.is_a? Rorschart::MultipleSeries)
           pivot = data
         else
-          pivot = PivotData.new(data)
+          pivot = RorschartData.new(data)
           pivot.sort_by_date!
         end
 
