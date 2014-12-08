@@ -1,5 +1,5 @@
 require "test_helper"
-require "rorschart/rorschart_data"
+require "rorschart/data/rorschart_data"
 
 module Rorschart
 

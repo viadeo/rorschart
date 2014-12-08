@@ -1,5 +1,5 @@
 module Rorschart
-  class MultipleSeries
+  class MultipleSeries < RorschartData
 
     attr_accessor :raw_series, :rorschart_series
 
@@ -44,9 +44,6 @@ module Rorschart
     end
 
     private
-
-    def uniq_label(label)
-    end
 
     def union_of_first_columns
       (
