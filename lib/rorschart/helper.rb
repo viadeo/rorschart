@@ -6,7 +6,7 @@ require "rorschart/google_chart_options"
 module Rorschart
 
   module Helper
-	
+
 		def line_chart(data_source, options = {})
 			rorschart_chart "LineChart", data_source, options
 		end
@@ -35,6 +35,10 @@ module Rorschart
 			rorschart_chart "GeoChart", data_source, options
 		end
 
+    def combo_chart(data_source, options = {})
+      rorschart_chart "ComboChart", data_source, options
+    end
+
 		def to_chart(data_source)
 			to_datatable_format(data_source).to_json
 		end
@@ -48,7 +52,7 @@ module Rorschart
 
 			html = <<HTML
 				<div id="#{ERB::Util.html_escape(element_id)}" style="height: #{ERB::Util.html_escape(height)}; width:100%;">
-				Rorchart is not initialized.			
+				Rorchart is not initialized.
 			</div>
 HTML
 
@@ -58,7 +62,7 @@ HTML
 			</script>
 JS
 
-			(html + js).html_safe 
+			(html + js).html_safe
 		end
 
 		private
