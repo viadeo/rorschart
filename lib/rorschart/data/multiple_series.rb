@@ -1,9 +1,10 @@
 module Rorschart
   class MultipleSeries < RorschartData
 
-    attr_accessor :raw_series, :rorschart_series
+    attr_accessor :raw_series, :rorschart_series, :to_sql
 
     def initialize(raw_series)
+      @to_sql = raw_series.map { |serie| serie.to_sql rescue nil }.delete_if { |serie| serie.nil? }
       @raw_series = raw_series
       @rorschart_series = raw_series.collect { |serie|
         RorschartData.new(serie)

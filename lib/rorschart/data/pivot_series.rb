@@ -1,7 +1,10 @@
 module Rorschart
   class PivotSeries < RorschartData
 
+    attr_accessor :to_sql
+
     def initialize(raw_serie)
+      @to_sql = raw_serie.to_sql rescue nil
       rorschart_serie = RorschartData.new(raw_serie)
 
       # Initialiaze a default row with nil values
