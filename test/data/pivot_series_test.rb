@@ -42,37 +42,25 @@ module Rorschart
             assert_equal expected_rows, pivot_series.rows
 
         end
+
+        def test_pivot_with_empty_data
+
+            # Given
+            data = []
+
+            # When
+
+            pivot_series = PivotSeries.new(data)
+
+            # assert
+            expected_cols = []
+
+            expected_rows = []
+
+            assert_equal expected_cols, pivot_series.cols
+            assert_equal expected_rows, pivot_series.rows
+        end
       
-  # def test_convert_numeric_grouped_dy_date_and_multiple_fields_into_multiseries
-
-  #   # Given
-  #   data = [
-  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "A", "count"=> 1},
-  #     {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "B", "count"=> 2},      
-  #     {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 3},
-  #     {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 4}
-  #   ]
-
-  #   # When
-  #   dataTable = to_datatable_format(data)   
-
-  #   # Then
-  #   excepted = {
-  #      cols: [
-  #         {type: 'date', label: 'collector_tstamp'},
-  #         {type: 'number', label: 'A'},
-  #         {type: 'number', label: 'B'}          
-  #         ],
-  #      rows: [
-  #         {c:[{v: Date.parse("2013-11-02")}, {v: 1}, {v: 2}]},
-  #         {c:[{v: Date.parse("2013-12-01")}, {v: 3}, {v: 4}]}
-  #          ]
-  #   }
-
-  #   compare_dataTable excepted, dataTable
-  # end  
-
-
     end
 
 end

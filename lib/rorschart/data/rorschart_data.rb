@@ -27,6 +27,8 @@ module Rorschart
 
     def sort_by_date!
 
+      return if @cols.blank?
+      
       if ['datetime', 'date'].include? @cols.first[:type]
         @rows = @rows.sort_by{ |c| c.first }
       end

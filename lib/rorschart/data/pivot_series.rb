@@ -22,9 +22,9 @@ module Rorschart
       }
 
       #cols
-      type = rorschart_serie.cols[2][:type]
+      type = rorschart_serie.cols[2][:type] rescue nil
       @cols = []
-      @cols << rorschart_serie.cols[0]
+      @cols << rorschart_serie.cols[0] rescue nil
       row_nil.keys.each { |r|
         @cols << { :type => type, :label => r }
       }

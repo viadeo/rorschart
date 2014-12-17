@@ -6,9 +6,13 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
   include Rorschart::GoogleChart::Mapper
 
   def compare_dataTable(right, left)
-    assert_equal right[:cols], left[:cols]
-    assert_equal right[:cols].count, left[:cols].count
-    assert_equal right.to_json, left.to_json
+    if (right[:cols] == nil) || (left == left[:cols])
+      assert_equal right.to_json, left.to_json
+    else
+      assert_equal right[:cols], left[:cols]
+      assert_equal right[:cols].count, left[:cols].count
+      assert_equal right.to_json, left.to_json
+    end
   end
 
   def test_from_a_simple_hash_and_detect_type_and_name
@@ -268,6 +272,29 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
 
   end
 
+  def test_merge_multiple_empty_series
+
+    # Given
+    serie1 = []
+
+    serie2 = []
+
+    data = Rorschart::MultipleSeries.new [serie1, serie2]
+
+    # When
+    series = to_datatable_format(data)
+
+    # Then
+    excepted = {
+       cols: [],
+       rows: []
+    }
+
+    compare_dataTable excepted, series  
+
+  end
+
+
   def test_merge_two_series_with_first_serie_start_later
 
     # Given
@@ -309,6 +336,25 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
 
   end
   
+
+  def test_empty_data
+
+    # Given
+    data = []
+
+    # When
+    dataTable = to_datatable_format(data)
+
+    # Then
+    excepted = {
+       cols: nil,
+       rows: []
+    }
+
+    compare_dataTable excepted, dataTable  
+
+  end
+
   # def test_convert_numeric_grouped_dy_date_and_another_field_into_multiseries
 
   #   # Given
