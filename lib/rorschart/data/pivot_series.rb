@@ -32,7 +32,7 @@ module Rorschart
       if (options[:add_total_column])
         @cols.insert(1, {:type=>"number", :label=>"Total"})
         @rows.each { |row|
-          total_value = row[1..-1].inject { |sum,x| sum + x rescue sum + 0}
+          total_value = row[1..-1].inject(0) { |sum,x| sum + x rescue sum + 0}
 
           row.insert(1, total_value)
         }

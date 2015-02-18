@@ -51,7 +51,7 @@ module Rorschart
               {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "B", "count"=> 2},
               {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "C", "count"=> 3},
               {"collector_tstamp"=> Date.parse("2013-11-02"), "series" => "D", "count"=> 4},
-              {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 5},
+              {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> nil},
               {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 6},
               {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "D", "count"=> 7}
 
@@ -74,7 +74,7 @@ module Rorschart
 
             expected_rows = [
                                 [Date.parse("2013-11-02"), 10, 1, 2, 3, 4],
-                                [Date.parse("2013-12-01"), 18, 5, 6, nil, 7]                                
+                                [Date.parse("2013-12-01"), 13, nil, 6, nil, 7]                                
                             ]
 
             assert_equal expected_cols, pivot_series.cols
