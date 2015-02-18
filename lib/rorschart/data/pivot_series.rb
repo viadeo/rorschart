@@ -3,7 +3,7 @@ module Rorschart
 
     attr_accessor :to_sql
 
-    def initialize(raw_serie)
+    def initialize(raw_serie, options = {})
       @to_sql = raw_serie.to_sql rescue nil
       rorschart_serie = RorschartData.new(raw_serie)
 
@@ -28,6 +28,15 @@ module Rorschart
       row_nil.keys.each { |r|
         @cols << { :type => type, :label => r }
       }
+
+      if (options[:add_total_column])
+        @cols.insert(1, {:type=>"number", :label=>"Total"})
+        @rows.each { |row|
+          total_value = row[1..-1].inject { |sum,x| sum + x rescue sum + 0}
+
+          row.insert(1, total_value)
+        }
+      end
 
       sort_by_date!
     end
