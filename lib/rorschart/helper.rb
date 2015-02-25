@@ -35,9 +35,13 @@ module Rorschart
 			rorschart_chart "GeoChart", data_source, options
 		end
 
-    def combo_chart(data_source, options = {})
-      rorschart_chart "ComboChart", data_source, options
-    end
+		def bubble_chart(data_source, options = {})
+			rorschart_chart "BubbleChart", data_source, options
+		end
+
+        def combo_chart(data_source, options = {})
+          rorschart_chart "ComboChart", data_source, options
+        end
 
 		def to_chart(data_source)
 			to_datatable_format(data_source).to_json
