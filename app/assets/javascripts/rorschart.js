@@ -82,24 +82,40 @@
 
     resize(function () {
       chart.chart.draw(dataTable, options);
-    });
+    });    
   }
 
-  function retrieveRemoteData(element, url, callback) {
+  function retrieveRemoteData(element, url, callback, alreadyDrawed) {
     $.ajax({
       url: url,
       statusCode: {
-        202: function (data) {
+        201: function (data) {
           //Use traditionnal polling here instead of long one. Heroku in mind.
           setTimeout(function () {
+            $( '#'+ element.id ).trigger( "refreshing", [ element.id ] );
             retrieveRemoteData(element, url, callback);
           }, 1500);
-        },
+        },        
+        202: function (data) {
+          if (!alreadyDrawed) {
+            // Display current
+            callback(data);
+          }
+          setTimeout(function () {
+            $( '#'+ element.id ).trigger( "refreshing", [ element.id ] );
+            retrieveRemoteData(element, url, callback, true);
+          }, 1500);
+        },        
         200: function (data) {
+          $( '#'+ element.id ).trigger( "displayed", [ element.id ] );
           callback(data);
-        }
+        },
+        203: function (data) {
+          callback(data);
+        }        
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        $( '#'+ element.id ).trigger( "error", [ element.id ] );
         var message = (typeof errorThrown === "string") ? errorThrown : errorThrown.message;
         chartError(element, message + " "+ jqXHR.responseText);
       }
