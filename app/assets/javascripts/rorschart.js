@@ -111,11 +111,14 @@
           callback(data);
         },
         203: function (data) {
+          $( '#'+ element.id ).trigger( "error", [ element.id ] );
           callback(data);
         }        
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        
         $( '#'+ element.id ).trigger( "error", [ element.id ] );
+
         var message = (typeof errorThrown === "string") ? errorThrown : errorThrown.message;
         chartError(element, message + " "+ jqXHR.responseText);
       }
