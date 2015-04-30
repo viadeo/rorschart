@@ -85,24 +85,27 @@
     });    
   }
 
-  function retrieveRemoteData(element, url, callback, alreadyDrawed) {
+  function retrieveRemoteData(element, url, callback, isPolling) {
     $.ajax({
       url: url,
       statusCode: {
         201: function (data) {
           //Use traditionnal polling here instead of long one. Heroku in mind.
-          setTimeout(function () {
+          if (!isPolling) {
             $( '#'+ element.id ).trigger( "refreshing", [ element.id ] );
+          }
+
+          setTimeout(function () {
             retrieveRemoteData(element, url, callback);
           }, 1500);
         },        
         202: function (data) {
-          if (!alreadyDrawed) {
+          if (!isPolling) {
             // Display current
             callback(data);
+            $( '#'+ element.id ).trigger( "refreshing", [ element.id ] );
           }
           setTimeout(function () {
-            $( '#'+ element.id ).trigger( "refreshing", [ element.id ] );
             retrieveRemoteData(element, url, callback, true);
           }, 1500);
         },        
