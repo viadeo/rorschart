@@ -32,13 +32,19 @@ module Rorschart
       # The Merge:
       # For abscisse value, grab for each serie the corresponding row - or nil
       union_series = []
+      asc = true
       union_x.each { |x|
         row = [x]
         series_indexed.each { |serie_hash|
           row << serie_hash[x]
+          asc = asc && ascending?(serie_hash)
         }
         union_series << row.flatten
       }
+
+      if !asc
+        union_series = union_series.reverse
+      end
 
       # Return union of all series
       union_series
@@ -62,6 +68,10 @@ module Rorschart
       }
 
       serie_hash
+    end
+
+    def ascending? hsh
+      hsh.keys == hsh.keys.sort
     end
 
   end
