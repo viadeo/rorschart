@@ -1,4 +1,4 @@
-require "test_helper"
+require "../test_helper"
 require "rorschart/data/rorschart_data"
 
 module Rorschart
@@ -16,7 +16,6 @@ module Rorschart
               {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "A", "count"=> 5},
               {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "B", "count"=> 6},
               {"collector_tstamp"=> Date.parse("2013-12-01"), "series" => "D", "count"=> 7}
-
             ]
 
             # When

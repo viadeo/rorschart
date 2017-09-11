@@ -50,8 +50,7 @@ private
     end
 
     def model_to_hash_without_empty_primary_key(object)
-      primary_keys = object.class.columns.map{|c| c.name if c.primary}.compact
-      object.attributes.except(primary_keys.first)
+      object.attributes.except(object.class.primary_key)
     end
 
     def columns_from_hash_row(data)

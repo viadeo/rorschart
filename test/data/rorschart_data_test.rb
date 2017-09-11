@@ -1,4 +1,4 @@
-require "test_helper"
+require "../test_helper"
 require "rorschart/data/rorschart_data"
 
 module Rorschart

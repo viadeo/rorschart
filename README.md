@@ -1,4 +1,4 @@
-Rorschart
+Rorschart  &middot;  [![Gem Version](https://badge.fury.io/rb/rorschart.svg)](https://badge.fury.io/rb/rorschart)
 =========
 
 Rorschart is a Ruby library that interprates common Ruby and Activerecord data structures for you to generate beautiful Javascript Google Chart.
