@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Rorschart::VERSION
   spec.authors       = ["Eric Pantera"]
   spec.email         = ["eric.pantera@gmail.com"]
-  spec.description   = %q{Interprates Rails data structures for you to generate beautiful Google Charts}
+  spec.description   = %q{Interprets Rails data structures for you to generate beautiful Google Charts}
   spec.summary       = %q{Beautiful Google Charts from Rails data structures}
-  spec.homepage      = "https://github.com/epantera/rorschart"
+  spec.homepage      = "https://github.com/viadeo/rorschart"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,11 +18,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'activerecord4-redshift-adapter', '~> 0.1.1'
+  spec.required_ruby_version = '>= 2.0.0'
+  spec.add_runtime_dependency 'activerecord4-redshift-adapter', '~> 0.2.0'
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest"
-  spec.add_development_dependency "activerecord"
+  spec.add_development_dependency "activerecord", '~> 4.2.0'
   spec.add_development_dependency "sqlite3"  
 end

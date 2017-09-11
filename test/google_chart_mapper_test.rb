@@ -1,4 +1,4 @@
-require "test_helper"
+require "./test_helper"
 require "rorschart/google_chart_mapper"
 
 class TestGoogleChartMapper  < Minitest::Unit::TestCase
@@ -19,8 +19,8 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
 
     # Given
     data = {
-      DateTime.now - 1 => 18,
-      DateTime.now => 17
+      (DateTime.now - 1).at_noon => 18,
+      DateTime.now.at_noon => 17
     }
     
     # When
@@ -33,8 +33,8 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
           {type: 'number', label: 'Value'}
           ],
        rows: [
-          {c:[{v: DateTime.now - 1}, {v: 18}]},
-          {c:[{v: DateTime.now}, {v: 17}]}
+          {c:[{v: (DateTime.now - 1).at_noon}, {v: 18}]},
+          {c:[{v: DateTime.now.at_noon}, {v: 17}]}
            ]
     }
 
@@ -45,7 +45,7 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
 
     # Given
     data = {
-      "test" => DateTime.now
+      "test" => DateTime.now.at_noon
     }
     
     # When
@@ -58,7 +58,7 @@ class TestGoogleChartMapper  < Minitest::Unit::TestCase
           {type: 'datetime', label: 'Date'}
           ],
        rows: [
-          {c:[{v: "test"}, {v: DateTime.now}]}
+          {c:[{v: "test"}, {v: DateTime.now.at_noon}]}
            ]
     }
 
